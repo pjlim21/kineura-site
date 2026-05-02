@@ -77,10 +77,94 @@
             <h2>Most wearables track the workout. Kineura tracks how your body handles it.</h2>
             <p class="lede">Pace, distance, and heart rate tell you what you did. They don't reveal which muscles fired, when fatigue set in, or whether your stride stayed balanced through the final mile.</p>
           </div>
-          <figure class="problem-figure">
-            <div class="problem-figure-frame">
-              <img src="assets/img/kineura-product-diagram.jpg" alt="Kineura wearable product diagram showing EMG and motion sensors" loading="lazy" />
+
+          <figure class="sleeve-figure" aria-label="Kineura lower-leg biosensor sleeve and its components">
+            <div class="sleeve-stage">
+              <div class="sleeve-glow" aria-hidden="true"></div>
+
+              <!-- Top-left callout (EMG electrodes) -->
+              <div class="sleeve-callout sleeve-callout--tl">
+                <div class="sleeve-callout-card">
+                  <p class="sleeve-callout-eyebrow">01 · Sensing</p>
+                  <h3 class="sleeve-callout-title">EMG Dry Electrodes</h3>
+                  <p class="sleeve-callout-text">No gel, no prep. Just put it on and go.</p>
+                </div>
+                <span class="sleeve-callout-line" aria-hidden="true"></span>
+              </div>
+
+              <!-- Top-right callout (IMU) -->
+              <div class="sleeve-callout sleeve-callout--tr">
+                <div class="sleeve-callout-card">
+                  <p class="sleeve-callout-eyebrow">02 · Motion</p>
+                  <h3 class="sleeve-callout-title">IMU Sensor</h3>
+                  <p class="sleeve-callout-text">Captures motion data from every stride.</p>
+                </div>
+                <span class="sleeve-callout-line" aria-hidden="true"></span>
+              </div>
+
+              <!-- Image with positioned sensor dots -->
+              <div class="sleeve-image-wrap">
+                <img class="sleeve-image" src="assets/img/kineura-sleeve.jpg" alt="Kineura lower-leg biosensor sleeve worn on a calf, showing the central hub, integrated electrode pads, and signal traces" loading="lazy" />
+                <div class="sleeve-dots" aria-hidden="true">
+                  <span class="sleeve-callout-dot" style="--cx:38%; --cy:26%;"></span>
+                  <span class="sleeve-callout-dot" style="--cx:56%; --cy:44%;"></span>
+                  <span class="sleeve-callout-dot" style="--cx:28%; --cy:70%;"></span>
+                  <span class="sleeve-callout-dot" style="--cx:60%; --cy:53%;"></span>
+                </div>
+              </div>
+
+              <!-- Bottom-left callout (Compression) -->
+              <div class="sleeve-callout sleeve-callout--bl">
+                <div class="sleeve-callout-card">
+                  <p class="sleeve-callout-eyebrow">03 · Fit</p>
+                  <h3 class="sleeve-callout-title">Compression Sleeve</h3>
+                  <p class="sleeve-callout-text">Keeps electronics precisely positioned from training runs to race day.</p>
+                </div>
+                <span class="sleeve-callout-line" aria-hidden="true"></span>
+              </div>
+
+              <!-- Bottom-right callout (Wireless Sync) -->
+              <div class="sleeve-callout sleeve-callout--br">
+                <div class="sleeve-callout-card">
+                  <p class="sleeve-callout-eyebrow">04 · Sync</p>
+                  <h3 class="sleeve-callout-title">Wireless Sync</h3>
+                  <p class="sleeve-callout-text">Real-time stream. Your results are ready before you catch your breath.</p>
+                </div>
+                <span class="sleeve-callout-line" aria-hidden="true"></span>
+              </div>
             </div>
+
+            <!-- Mobile/fallback list: shown when callouts can't sit cleanly over the image -->
+            <ul class="sleeve-feature-list" role="list">
+              <li class="sleeve-feature">
+                <span class="sleeve-feature-num">01</span>
+                <div>
+                  <h3>EMG Dry Electrodes</h3>
+                  <p>No gel, no prep. Just put it on and go.</p>
+                </div>
+              </li>
+              <li class="sleeve-feature">
+                <span class="sleeve-feature-num">02</span>
+                <div>
+                  <h3>IMU Sensor</h3>
+                  <p>Captures motion data from every stride.</p>
+                </div>
+              </li>
+              <li class="sleeve-feature">
+                <span class="sleeve-feature-num">03</span>
+                <div>
+                  <h3>Multi-Layer Compression Sleeve</h3>
+                  <p>Keeps electronics precisely positioned from training runs to race day.</p>
+                </div>
+              </li>
+              <li class="sleeve-feature">
+                <span class="sleeve-feature-num">04</span>
+                <div>
+                  <h3>Wireless Sync</h3>
+                  <p>Real-time stream. Your results are ready before you catch your breath.</p>
+                </div>
+              </li>
+            </ul>
           </figure>
         </div>
       </div>

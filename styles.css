@@ -288,8 +288,8 @@ a:hover { color: #5eead4; }
 .problem { padding: 100px 0; border-top: 1px solid var(--line); border-bottom: 1px solid var(--line); background: linear-gradient(180deg, transparent, rgba(45,212,191,0.025) 50%, transparent); }
 .problem-grid {
   display: grid;
-  grid-template-columns: minmax(0, 1.05fr) minmax(0, 1fr);
-  gap: 56px;
+  grid-template-columns: minmax(0, 0.85fr) minmax(0, 1.15fr);
+  gap: 48px;
   align-items: center;
 }
 .problem-copy { text-align: left; }
@@ -303,26 +303,253 @@ a:hover { color: #5eead4; }
 .problem-figure {
   margin: 0;
 }
-.problem-figure-frame {
+
+/* Sleeve product explainer.
+   Stage is a 3-col grid: cards | image | cards.
+   Each side column has 2 rows (top, bottom callouts).
+   Connector lines span from card inner-edge across the side column to the
+   image edge, then a dot on the image marks the component. */
+.sleeve-figure { margin: 0; }
+.sleeve-stage {
   position: relative;
   border-radius: var(--radius-lg);
-  overflow: hidden;
-  background: transparent;
-  border: 0;
-  padding: 0;
+  background:
+    radial-gradient(ellipse at 50% 45%, rgba(45,212,191,0.10), transparent 60%),
+    linear-gradient(180deg, #0c1216 0%, #070a0d 100%);
+  border: 1px solid var(--line);
+  padding: 28px;
   box-shadow:
     0 30px 80px -30px rgba(0,0,0,0.75),
     0 0 0 1px rgba(45,212,191,0.08);
+  display: grid;
+  grid-template-columns: minmax(140px, 168px) minmax(200px, 280px) minmax(140px, 168px);
+  grid-template-rows: 1fr 1fr;
+  column-gap: 14px;
+  row-gap: 16px;
+  justify-content: center;
+  align-items: center;
 }
-.problem-figure-frame img {
+.sleeve-glow {
+  position: absolute;
+  inset: 0;
+  pointer-events: none;
+  background:
+    radial-gradient(circle at 50% 45%, rgba(45,212,191,0.18), transparent 55%);
+  opacity: 0.7;
+  filter: blur(40px);
+  z-index: 0;
+  border-radius: inherit;
+}
+.sleeve-image-wrap {
+  position: relative;
+  z-index: 1;
+  grid-column: 2;
+  grid-row: 1 / span 2;
+  border-radius: 18px;
+  aspect-ratio: 1 / 1;
+  width: 100%;
+  background: #0a0e11;
+  align-self: center;
+  isolation: isolate;
+}
+.sleeve-image {
   display: block;
   width: 100%;
-  height: auto;
-  border-radius: inherit;
-  background: transparent;
+  height: 100%;
+  object-fit: cover;
+  border-radius: 18px;
+  filter: contrast(1.04) saturate(1.05);
+  box-shadow:
+    inset 0 0 0 1px rgba(255,255,255,0.04),
+    0 20px 50px -25px rgba(0,0,0,0.8);
 }
+
+/* Dot overlay on image */
+.sleeve-dots {
+  position: absolute;
+  inset: 0;
+  pointer-events: none;
+  z-index: 2;
+  border-radius: inherit;
+  overflow: hidden;
+}
+.sleeve-callout-dot {
+  position: absolute;
+  left: var(--cx);
+  top: var(--cy);
+  width: 11px;
+  height: 11px;
+  margin: -5.5px 0 0 -5.5px;
+  border-radius: 50%;
+  background: var(--accent);
+  box-shadow:
+    0 0 0 3px rgba(45,212,191,0.28),
+    0 0 18px rgba(45,212,191,0.75);
+  z-index: 3;
+}
+.sleeve-callout-dot::after {
+  content: "";
+  position: absolute;
+  inset: -8px;
+  border-radius: 50%;
+  border: 1px solid rgba(45,212,191,0.5);
+  animation: sleevePulse 2.4s ease-out infinite;
+}
+@keyframes sleevePulse {
+  0% { transform: scale(0.55); opacity: 0.9; }
+  100% { transform: scale(1.7); opacity: 0; }
+}
+
+/* Each callout is a grid cell with a card and a connector line.
+   The line emerges from the card's inner edge and stretches toward the image. */
+.sleeve-callout {
+  position: relative;
+  display: flex;
+  align-items: center;
+  gap: 8px;
+  z-index: 2;
+}
+.sleeve-callout--tl { grid-column: 1; grid-row: 1; }
+.sleeve-callout--bl { grid-column: 1; grid-row: 2; }
+.sleeve-callout--tr { grid-column: 3; grid-row: 1; flex-direction: row-reverse; }
+.sleeve-callout--br { grid-column: 3; grid-row: 2; flex-direction: row-reverse; }
+
+.sleeve-callout-card {
+  flex: 1 1 auto;
+  min-width: 0;
+  padding: 10px 12px;
+  background: rgba(8, 12, 14, 0.85);
+  backdrop-filter: blur(12px);
+  -webkit-backdrop-filter: blur(12px);
+  border: 1px solid rgba(45,212,191,0.22);
+  border-radius: 10px;
+  box-shadow:
+    0 12px 30px -10px rgba(0,0,0,0.75),
+    0 0 0 1px rgba(255,255,255,0.02);
+  pointer-events: auto;
+}
+.sleeve-callout-eyebrow {
+  font-family: 'JetBrains Mono', monospace;
+  font-size: 9.5px;
+  letter-spacing: 0.18em;
+  text-transform: uppercase;
+  color: var(--accent);
+  margin: 0 0 3px;
+}
+.sleeve-callout-card h3.sleeve-callout-title {
+  font-size: 13px;
+  font-weight: 600;
+  letter-spacing: -0.01em;
+  margin: 0 0 3px;
+  color: var(--text);
+  line-height: 1.25;
+}
+.sleeve-callout-text {
+  font-size: 11.5px;
+  line-height: 1.45;
+  color: var(--text-dim);
+  margin: 0;
+}
+
+/* Connector line — points horizontally from card inner edge toward image. */
+.sleeve-callout-line {
+  flex: 0 0 16px;
+  height: 1px;
+  background: linear-gradient(90deg, rgba(45,212,191,0.95), rgba(45,212,191,0.2));
+  position: relative;
+}
+.sleeve-callout-line::after {
+  content: "";
+  position: absolute;
+  right: -2px;
+  top: -2px;
+  width: 4px;
+  height: 4px;
+  border-radius: 50%;
+  background: var(--accent);
+  box-shadow: 0 0 8px rgba(45,212,191,0.7);
+}
+.sleeve-callout--tr .sleeve-callout-line,
+.sleeve-callout--br .sleeve-callout-line {
+  background: linear-gradient(270deg, rgba(45,212,191,0.95), rgba(45,212,191,0.2));
+}
+.sleeve-callout--tr .sleeve-callout-line::after,
+.sleeve-callout--br .sleeve-callout-line::after {
+  right: auto;
+  left: -2px;
+}
+
+/* Fallback feature list (mobile / narrow) */
+.sleeve-feature-list {
+  list-style: none;
+  margin: 24px 0 0;
+  padding: 0;
+  display: none;
+  gap: 14px;
+}
+.sleeve-feature {
+  display: flex;
+  gap: 14px;
+  align-items: flex-start;
+  padding: 14px 16px;
+  background: rgba(13, 18, 22, 0.6);
+  border: 1px solid var(--line);
+  border-radius: 12px;
+}
+.sleeve-feature-num {
+  font-family: 'JetBrains Mono', monospace;
+  font-size: 12px;
+  letter-spacing: 0.12em;
+  color: var(--accent);
+  padding: 4px 8px;
+  border: 1px solid rgba(45,212,191,0.25);
+  border-radius: 6px;
+  flex-shrink: 0;
+  line-height: 1;
+}
+.sleeve-feature h3 {
+  margin: 2px 0 4px;
+  font-size: 15px;
+  font-weight: 600;
+  color: var(--text);
+}
+.sleeve-feature p {
+  margin: 0;
+  font-size: 13.5px;
+  line-height: 1.5;
+  color: var(--text-dim);
+}
+
+/* Tighten the callout layout for medium screens. */
+@media (max-width: 1180px) {
+  .sleeve-stage {
+    grid-template-columns: minmax(126px, 150px) minmax(180px, 240px) minmax(126px, 150px);
+    column-gap: 10px;
+    padding: 22px;
+  }
+  .sleeve-callout-card { padding: 9px 10px; }
+  .sleeve-callout-card h3.sleeve-callout-title { font-size: 12.5px; }
+  .sleeve-callout-text { font-size: 11px; }
+  .sleeve-callout-line { flex-basis: 12px; }
+}
+/* Switch to stacked image + list when problem-grid stacks. */
 @media (max-width: 980px) {
   .problem-grid { grid-template-columns: 1fr; gap: 36px; }
+  .sleeve-stage {
+    grid-template-columns: 1fr;
+    grid-template-rows: auto;
+    column-gap: 0;
+    row-gap: 0;
+    padding: 20px;
+  }
+  .sleeve-callout { display: none; }
+  .sleeve-image-wrap { grid-column: 1; grid-row: 1; max-width: 380px; margin: 0 auto; }
+  .sleeve-feature-list { display: grid; }
+}
+@media (max-width: 520px) {
+  .sleeve-stage { padding: 16px; }
+  .sleeve-image-wrap { max-width: 100%; }
+  .sleeve-feature { padding: 12px 14px; }
 }
 
 /* How it works */
