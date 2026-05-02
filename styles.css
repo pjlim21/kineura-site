@@ -101,16 +101,16 @@ a:hover { color: #5eead4; }
 }
 .brand:hover { color: var(--text); }
 .brand-logo {
-  height: 56px;
+  height: 38px;
   width: auto;
   display: block;
 }
-.site-footer .brand-logo { height: 48px; }
+.site-footer .brand-logo { height: 32px; }
 
 @media (max-width: 720px) {
   .header-inner { height: 72px; }
-  .brand-logo { height: 44px; }
-  .site-footer .brand-logo { height: 40px; }
+  .brand-logo { height: 30px; }
+  .site-footer .brand-logo { height: 28px; }
 }
 
 .primary-nav { display: flex; align-items: center; }
@@ -212,14 +212,14 @@ a:hover { color: #5eead4; }
   height: 100%;
   object-fit: cover;
   opacity: 1;
-  filter: brightness(0.55) contrast(1.05) saturate(1.05);
+  filter: brightness(0.85) contrast(1.05) saturate(1.05);
 }
 .hero-veil {
   position: absolute;
   inset: 0;
   background:
-    radial-gradient(ellipse at 50% 35%, rgba(7,9,11,0.35) 0%, rgba(7,9,11,0.78) 65%, rgba(7,9,11,0.95) 100%),
-    linear-gradient(180deg, rgba(7,9,11,0.55) 0%, rgba(7,9,11,0.45) 40%, rgba(7,9,11,0.92) 100%);
+    radial-gradient(ellipse at 50% 38%, rgba(7,9,11,0.10) 0%, rgba(7,9,11,0.55) 60%, rgba(7,9,11,0.88) 100%),
+    linear-gradient(180deg, rgba(7,9,11,0.30) 0%, rgba(7,9,11,0.22) 40%, rgba(7,9,11,0.86) 100%);
 }
 .hero-grid {
   position: absolute;
@@ -307,9 +307,9 @@ a:hover { color: #5eead4; }
   position: relative;
   border-radius: var(--radius-lg);
   overflow: hidden;
-  background: linear-gradient(160deg, rgba(45,212,191,0.10) 0%, rgba(20,184,166,0.04) 60%, rgba(7,9,11,0) 100%);
+  background: linear-gradient(160deg, rgba(45,212,191,0.08) 0%, rgba(20,184,166,0.03) 60%, rgba(12,17,22,0) 100%), #0c1116;
   border: 1px solid var(--line-strong);
-  padding: 14px;
+  padding: 0;
   box-shadow:
     0 30px 80px -30px rgba(0,0,0,0.7),
     0 0 0 1px rgba(45,212,191,0.06) inset;
@@ -327,12 +327,12 @@ a:hover { color: #5eead4; }
   width: 100%;
   height: auto;
   display: block;
-  border-radius: calc(var(--radius-lg) - 8px);
-  background: #0a0d10;
+  border-radius: var(--radius-lg);
+  background: #0c1116;
 }
 @media (max-width: 980px) {
   .problem-grid { grid-template-columns: 1fr; gap: 36px; }
-  .problem-figure-frame { padding: 10px; }
+  .problem-figure-frame { padding: 0; }
 }
 
 /* How it works */

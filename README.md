@@ -33,7 +33,7 @@ The interactive demo is now implemented natively in the page (no iframe). It mir
 
 ## Assets
 
-- `assets/img/kineura-wordmark-white.png` — Kineura wordmark (sourced from the live Wix site).
+- `assets/img/kineura-wordmark-cropped.png` — Kineura wordmark, cropped tightly from the source PNG so it scales without empty padding.
 - `assets/img/hero-poster.jpg` — fallback poster for the hero video, taken from the Wix hero clip.
 - The hero `<video>` streams directly from `https://video.wixstatic.com/video/bee5e3_57d041944a114fd59c90aa651ebfb15c/720p/mp4/file.mp4` so the same footage that appears on `kineura.com` plays here. If you'd rather self-host, download that file and any preferred resolution variant into `assets/video/` and update `index.html`.
 - `assets/img/metric-*.jpg` and `athlete-*.jpg` — sport / training photography from Unsplash (license: free for commercial and editorial use). Replace with your own art when available.
