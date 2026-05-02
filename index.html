@@ -30,17 +30,7 @@
   <header class="site-header" id="siteHeader">
     <div class="container header-inner">
       <a class="brand" href="#top" aria-label="Kineura home">
-        <svg class="brand-mark" viewBox="0 0 32 32" aria-hidden="true">
-          <defs>
-            <linearGradient id="g1" x1="0" y1="0" x2="1" y2="1">
-              <stop offset="0%" stop-color="#2dd4bf" />
-              <stop offset="100%" stop-color="#0ea5a4" />
-            </linearGradient>
-          </defs>
-          <path d="M4 22 L10 12 L14 18 L20 6 L28 22" fill="none" stroke="url(#g1)" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round"/>
-          <circle cx="20" cy="6" r="2.2" fill="#2dd4bf"/>
-        </svg>
-        <span class="brand-name">Kineura</span>
+        <img class="brand-logo" src="assets/img/kineura-wordmark-white.png" alt="Kineura" width="160" height="40" />
       </a>
 
       <nav class="primary-nav" aria-label="Primary">
@@ -50,6 +40,7 @@
         <ul class="nav-list" id="navList">
           <li><a href="#product">Product</a></li>
           <li><a href="#metrics">Metrics</a></li>
+          <li><a href="#demo">Demo</a></li>
           <li><a href="#science">Science</a></li>
           <li><a href="#about">About</a></li>
           <li><a href="#early-access" class="nav-cta">Get Early Access</a></li>
@@ -61,21 +52,19 @@
   <main id="main">
     <section class="hero" id="top">
       <div class="hero-bg" aria-hidden="true">
+        <video class="hero-video" autoplay muted loop playsinline preload="metadata" poster="assets/img/hero-poster.jpg">
+          <source src="https://video.wixstatic.com/video/bee5e3_57d041944a114fd59c90aa651ebfb15c/720p/mp4/file.mp4" type="video/mp4" />
+          <source src="https://video.wixstatic.com/video/bee5e3_57d041944a114fd59c90aa651ebfb15c/480p/mp4/file.mp4" type="video/mp4" />
+        </video>
+        <div class="hero-veil"></div>
         <div class="hero-grid"></div>
-        <div class="hero-pulse"></div>
       </div>
       <div class="container hero-inner">
-        <p class="eyebrow"><span class="dot"></span> Wearable EMG + IMU platform</p>
         <h1 class="hero-headline">Insights at every stride.</h1>
         <p class="hero-sub">Kineura combines wearable EMG and motion sensing to help runners and athletes understand fatigue, imbalance, biomechanics, and recovery in real time.</p>
         <div class="hero-ctas">
           <a class="btn btn-primary" href="#early-access">Get Early Access</a>
           <a class="btn btn-secondary" href="#metrics">Explore the Metrics</a>
-        </div>
-        <div class="hero-stats" aria-label="Signal sample">
-          <div class="stat"><span class="stat-label">EMG</span><span class="stat-bar"><i style="--w:78%"></i></span></div>
-          <div class="stat"><span class="stat-label">IMU</span><span class="stat-bar"><i style="--w:62%"></i></span></div>
-          <div class="stat"><span class="stat-label">Symmetry</span><span class="stat-bar"><i style="--w:91%"></i></span></div>
         </div>
       </div>
     </section>
@@ -126,50 +115,67 @@
         <div class="section-head">
           <p class="kicker">Metrics</p>
           <h2>The signals behind every stride.</h2>
-          <p class="lede">A focused set of metrics that turn raw biosignals into decisions you can train on.</p>
+          <p class="lede">A focused set of metrics that turn raw biosignals into decisions you can train on. Tap any card to dive deeper.</p>
         </div>
-        <div class="metric-grid">
-          <article class="metric-card">
-            <div class="metric-icon" aria-hidden="true">
-              <svg viewBox="0 0 24 24"><path d="M2 12h3l2-7 3 14 3-10 2 6 2-3h5" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"/></svg>
-            </div>
-            <h3>Muscle Activation</h3>
-            <p>See which muscle groups are doing the work, and how that balance shifts across a session.</p>
+        <div class="metric-rail" role="list" aria-label="Kineura metrics">
+          <article class="metric-photo-card" role="listitem" data-metric="muscle">
+            <img src="assets/img/metric-muscle.jpg" alt="Athlete training with battle ropes" loading="lazy" />
+            <div class="metric-photo-overlay"></div>
+            <h3 class="metric-photo-title">See beneath<br/>the surface</h3>
+            <p class="metric-photo-tag">Muscle Activation</p>
+            <button class="metric-plus" type="button" aria-label="Open Muscle Activation details">
+              <svg viewBox="0 0 24 24" aria-hidden="true"><path d="M12 5v14M5 12h14" stroke="currentColor" stroke-width="2.2" stroke-linecap="round"/></svg>
+            </button>
           </article>
-          <article class="metric-card">
-            <div class="metric-icon" aria-hidden="true">
-              <svg viewBox="0 0 24 24"><path d="M3 17c4 0 4-8 8-8s4 8 8 8" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round"/><path d="M3 21h18" stroke="currentColor" stroke-width="1.8" stroke-linecap="round"/></svg>
-            </div>
-            <h3>Fatigue Index</h3>
-            <p>Track how muscle output and signal quality evolve as effort accumulates over time.</p>
+
+          <article class="metric-photo-card" role="listitem" data-metric="fatigue">
+            <img src="assets/img/metric-fatigue.jpg" alt="Athlete pushing through fatigue" loading="lazy" />
+            <div class="metric-photo-overlay"></div>
+            <h3 class="metric-photo-title">Know when output<br/>starts to fade</h3>
+            <p class="metric-photo-tag">Fatigue Index</p>
+            <button class="metric-plus" type="button" aria-label="Open Fatigue Index details">
+              <svg viewBox="0 0 24 24" aria-hidden="true"><path d="M12 5v14M5 12h14" stroke="currentColor" stroke-width="2.2" stroke-linecap="round"/></svg>
+            </button>
           </article>
-          <article class="metric-card">
-            <div class="metric-icon" aria-hidden="true">
-              <svg viewBox="0 0 24 24"><path d="M12 3v18M5 8l7-5 7 5M5 16l7 5 7-5" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"/></svg>
-            </div>
-            <h3>Stride Symmetry</h3>
-            <p>Compare left and right limbs to surface imbalances that are easy to miss by feel alone.</p>
+
+          <article class="metric-photo-card" role="listitem" data-metric="symmetry">
+            <img src="assets/img/metric-symmetry.jpg" alt="Runner mid-stride showing left and right leg motion" loading="lazy" />
+            <div class="metric-photo-overlay"></div>
+            <h3 class="metric-photo-title">Spot imbalance<br/>before it compounds</h3>
+            <p class="metric-photo-tag">Stride Symmetry</p>
+            <button class="metric-plus" type="button" aria-label="Open Stride Symmetry details">
+              <svg viewBox="0 0 24 24" aria-hidden="true"><path d="M12 5v14M5 12h14" stroke="currentColor" stroke-width="2.2" stroke-linecap="round"/></svg>
+            </button>
           </article>
-          <article class="metric-card">
-            <div class="metric-icon" aria-hidden="true">
-              <svg viewBox="0 0 24 24"><path d="M3 18h18M6 18V9M12 18V6M18 18v-7" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round"/></svg>
-            </div>
-            <h3>Ground Contact Time</h3>
-            <p>Quantify how long each foot stays on the ground — a window into running economy and load.</p>
+
+          <article class="metric-photo-card" role="listitem" data-metric="gct">
+            <img src="assets/img/metric-gct.jpg" alt="Close-up of running shoes contacting the ground" loading="lazy" />
+            <div class="metric-photo-overlay"></div>
+            <h3 class="metric-photo-title">Measure efficiency<br/>at impact</h3>
+            <p class="metric-photo-tag">Ground Contact Time</p>
+            <button class="metric-plus" type="button" aria-label="Open Ground Contact Time details">
+              <svg viewBox="0 0 24 24" aria-hidden="true"><path d="M12 5v14M5 12h14" stroke="currentColor" stroke-width="2.2" stroke-linecap="round"/></svg>
+            </button>
           </article>
-          <article class="metric-card">
-            <div class="metric-icon" aria-hidden="true">
-              <svg viewBox="0 0 24 24"><circle cx="12" cy="12" r="9" fill="none" stroke="currentColor" stroke-width="1.8"/><path d="M12 7v5l3 2" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round"/></svg>
-            </div>
-            <h3>Cadence &amp; Motion Trends</h3>
-            <p>Follow cadence, pelvic motion, and stride dynamics across runs to see what's actually changing.</p>
+
+          <article class="metric-photo-card" role="listitem" data-metric="cadence">
+            <img src="assets/img/metric-cadence.jpg" alt="Runner on an open trail in motion" loading="lazy" />
+            <div class="metric-photo-overlay"></div>
+            <h3 class="metric-photo-title">Read rhythm<br/>in motion</h3>
+            <p class="metric-photo-tag">Cadence &amp; Motion Trends</p>
+            <button class="metric-plus" type="button" aria-label="Open Cadence and Motion Trends details">
+              <svg viewBox="0 0 24 24" aria-hidden="true"><path d="M12 5v14M5 12h14" stroke="currentColor" stroke-width="2.2" stroke-linecap="round"/></svg>
+            </button>
           </article>
-          <article class="metric-card">
-            <div class="metric-icon" aria-hidden="true">
-              <svg viewBox="0 0 24 24"><path d="M4 12a8 8 0 1 0 4-7" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round"/><path d="M4 4v5h5" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"/></svg>
-            </div>
-            <h3>Recovery Signals</h3>
-            <p>Read how your neuromuscular system is responding between sessions, not just how rested you feel.</p>
+
+          <article class="metric-photo-card" role="listitem" data-metric="recovery">
+            <img src="assets/img/metric-recovery.jpg" alt="Athlete in a recovery and mobility session" loading="lazy" />
+            <div class="metric-photo-overlay"></div>
+            <h3 class="metric-photo-title">Track readiness<br/>beyond feel</h3>
+            <p class="metric-photo-tag">Recovery Signals</p>
+            <button class="metric-plus" type="button" aria-label="Open Recovery Signals details">
+              <svg viewBox="0 0 24 24" aria-hidden="true"><path d="M12 5v14M5 12h14" stroke="currentColor" stroke-width="2.2" stroke-linecap="round"/></svg>
+            </button>
           </article>
         </div>
       </div>
@@ -180,22 +186,179 @@
         <div class="section-head">
           <p class="kicker">Interactive demo</p>
           <h2>See the dashboard in motion.</h2>
-          <p class="lede">A live, interactive preview of the Kineura dashboard. <span class="badge">Simulated data</span></p>
+          <p class="lede">A live, interactive preview of the Kineura app — built natively into this page. <span class="badge">Simulated data</span></p>
         </div>
-        <div class="demo-frame">
-          <div class="demo-bar" aria-hidden="true">
-            <span class="demo-dot"></span><span class="demo-dot"></span><span class="demo-dot"></span>
-            <span class="demo-url">pjlim21.github.io/kineura_mockup</span>
+
+        <div class="demo-wrap">
+          <div class="phone" id="kineuraPhone" aria-label="Kineura mobile app simulation">
+            <div class="phone-notch" aria-hidden="true"></div>
+            <div class="phone-screen">
+              <!-- App header -->
+              <header class="app-header">
+                <div class="app-header-left">
+                  <span class="app-status-dot"></span>
+                  <span class="app-status-label">Live Workout</span>
+                </div>
+                <div class="app-header-right">
+                  <span class="app-time" id="appTime">12:47</span>
+                </div>
+              </header>
+
+              <!-- Tabs -->
+              <nav class="app-tabs" role="tablist" aria-label="Dashboard sections">
+                <button class="app-tab active" role="tab" aria-selected="true" data-tab="dash">Dashboard</button>
+                <button class="app-tab" role="tab" aria-selected="false" data-tab="emg">EMG</button>
+                <button class="app-tab" role="tab" aria-selected="false" data-tab="trends">Trends</button>
+              </nav>
+
+              <!-- Dashboard view -->
+              <section class="app-view active" id="view-dash" role="tabpanel">
+                <div class="app-hero-stat">
+                  <span class="app-hero-label">Overall Score</span>
+                  <span class="app-hero-value" id="overallScore">78</span>
+                  <span class="app-hero-trend">▲ 4 vs last run</span>
+                </div>
+
+                <p class="app-section-label">Tap a metric to explore</p>
+                <div class="app-metric-grid" id="appMetricGrid">
+                  <button class="app-mini-card" data-metric="muscle">
+                    <span class="app-mini-label">Muscle Activation</span>
+                    <span class="app-mini-value">76<small>%</small></span>
+                    <span class="app-mini-spark"><i style="--w:76%"></i></span>
+                  </button>
+                  <button class="app-mini-card" data-metric="fatigue">
+                    <span class="app-mini-label">Fatigue Index</span>
+                    <span class="app-mini-value">41<small>%</small></span>
+                    <span class="app-mini-spark"><i style="--w:41%"></i></span>
+                  </button>
+                  <button class="app-mini-card" data-metric="symmetry">
+                    <span class="app-mini-label">Symmetry</span>
+                    <span class="app-mini-value">93<small>%</small></span>
+                    <span class="app-mini-spark"><i style="--w:93%"></i></span>
+                  </button>
+                  <button class="app-mini-card" data-metric="gct">
+                    <span class="app-mini-label">Ground Contact</span>
+                    <span class="app-mini-value">256<small>ms</small></span>
+                    <span class="app-mini-spark"><i style="--w:64%"></i></span>
+                  </button>
+                  <button class="app-mini-card" data-metric="cadence">
+                    <span class="app-mini-label">Cadence</span>
+                    <span class="app-mini-value">170<small>spm</small></span>
+                    <span class="app-mini-spark"><i style="--w:85%"></i></span>
+                  </button>
+                  <button class="app-mini-card" data-metric="recovery">
+                    <span class="app-mini-label">Recovery</span>
+                    <span class="app-mini-value">82<small>%</small></span>
+                    <span class="app-mini-spark"><i style="--w:82%"></i></span>
+                  </button>
+                </div>
+
+                <p class="app-section-label">Muscle activation</p>
+                <ul class="app-muscle-list" id="appMuscleList">
+                  <li><span>Gastrocnemius</span><span class="app-bar"><i style="--w:76%"></i></span><span class="app-pct">76%</span></li>
+                  <li><span>Tibialis Ant.</span><span class="app-bar"><i style="--w:62%"></i></span><span class="app-pct">62%</span></li>
+                  <li><span>Soleus</span><span class="app-bar"><i style="--w:69%"></i></span><span class="app-pct">69%</span></li>
+                  <li><span>Peroneal</span><span class="app-bar"><i style="--w:46%"></i></span><span class="app-pct">46%</span></li>
+                </ul>
+              </section>
+
+              <!-- EMG view -->
+              <section class="app-view" id="view-emg" role="tabpanel" hidden>
+                <p class="app-section-label">Live EMG</p>
+                <div class="app-emg">
+                  <svg id="emgSvg" viewBox="0 0 320 140" preserveAspectRatio="none" aria-hidden="true">
+                    <defs>
+                      <linearGradient id="emgFill" x1="0" x2="0" y1="0" y2="1">
+                        <stop offset="0%" stop-color="rgba(45,212,191,0.35)"/>
+                        <stop offset="100%" stop-color="rgba(45,212,191,0)"/>
+                      </linearGradient>
+                    </defs>
+                    <path id="emgArea" fill="url(#emgFill)"></path>
+                    <path id="emgLine" stroke="#2dd4bf" stroke-width="1.6" fill="none" stroke-linecap="round" stroke-linejoin="round"></path>
+                  </svg>
+                  <div class="app-emg-meta">
+                    <div><span class="app-mini-label">RMS</span><span class="app-mini-value" id="emgRms">0.42</span></div>
+                    <div><span class="app-mini-label">Median Hz</span><span class="app-mini-value" id="emgHz">94</span></div>
+                  </div>
+                </div>
+                <p class="app-section-label">Cadence trend</p>
+                <div class="app-trend">
+                  <svg viewBox="0 0 320 80" preserveAspectRatio="none" aria-hidden="true">
+                    <polyline points="0,55 30,52 60,48 90,46 120,44 150,42 180,40 210,38 240,36 270,34 300,32 320,30"
+                              fill="none" stroke="#5eead4" stroke-width="1.8" stroke-linecap="round"/>
+                    <g fill="#5eead4">
+                      <circle cx="320" cy="30" r="3"/>
+                    </g>
+                  </svg>
+                  <p class="app-caption">170 spm · climbing across the run</p>
+                </div>
+              </section>
+
+              <!-- Trends view -->
+              <section class="app-view" id="view-trends" role="tabpanel" hidden>
+                <p class="app-section-label">This run vs. last run</p>
+                <div class="app-compare">
+                  <div class="app-compare-row"><span>Cadence</span><span class="up">170 ▲ 4</span></div>
+                  <div class="app-compare-row"><span>Symmetry</span><span class="up">93% ▲ 1</span></div>
+                  <div class="app-compare-row"><span>Fatigue end</span><span class="down">41% ▼ 6</span></div>
+                  <div class="app-compare-row"><span>GCT</span><span class="up">256ms ▼ 4</span></div>
+                </div>
+                <p class="app-section-label">Weekly progression</p>
+                <div class="app-trend">
+                  <svg viewBox="0 0 320 90" preserveAspectRatio="none" aria-hidden="true">
+                    <polyline points="0,70 53,62 106,55 160,48 213,40 266,32 320,24"
+                              fill="none" stroke="#2dd4bf" stroke-width="2" stroke-linecap="round"/>
+                  </svg>
+                  <p class="app-caption">Overall score climbing 6 weeks running</p>
+                </div>
+              </section>
+
+              <!-- Detail (slides in) -->
+              <section class="app-detail" id="appDetail" hidden aria-live="polite">
+                <header class="app-detail-head">
+                  <button class="app-back" type="button" aria-label="Back">
+                    <svg viewBox="0 0 24 24" aria-hidden="true"><path d="M15 6l-6 6 6 6" stroke="currentColor" stroke-width="2" fill="none" stroke-linecap="round" stroke-linejoin="round"/></svg>
+                    Back
+                  </button>
+                  <span class="app-detail-eyebrow">Metric Details</span>
+                </header>
+                <h3 class="app-detail-title" id="appDetailTitle">—</h3>
+                <div class="app-detail-meter">
+                  <span class="app-detail-value" id="appDetailValue">—</span>
+                  <span class="app-detail-bar"><i id="appDetailFill" style="--w:0%"></i></span>
+                </div>
+                <div class="app-detail-section">
+                  <h4>What is it?</h4>
+                  <p id="appDetailWhat">—</p>
+                </div>
+                <div class="app-detail-section">
+                  <h4>How is it measured?</h4>
+                  <p id="appDetailHow">—</p>
+                </div>
+                <div class="app-detail-section">
+                  <h4>Why it matters</h4>
+                  <p id="appDetailWhy">—</p>
+                </div>
+                <div class="app-detail-section app-detail-research">
+                  <h4>Research validation</h4>
+                  <p id="appDetailResearch">—</p>
+                </div>
+              </section>
+            </div>
+            <div class="phone-button" aria-hidden="true"></div>
           </div>
-          <iframe
-            src="https://pjlim21.github.io/kineura_mockup/"
-            title="Kineura interactive dashboard demo (simulated data)"
-            loading="lazy"
-            referrerpolicy="no-referrer-when-downgrade"
-            allow="fullscreen"
-          ></iframe>
+
+          <aside class="demo-side">
+            <p class="kicker">Try it</p>
+            <h3>Tap any metric — even on the page above.</h3>
+            <p>The card opens a detail view with what it is, how it's measured, why it matters, and the research behind it. Same content powers the dashboard tap-throughs.</p>
+            <ul class="demo-bullets">
+              <li>Live EMG waveform &amp; muscle activation bars</li>
+              <li>Cadence trend and weekly progression</li>
+              <li>Drill into any metric for the science</li>
+            </ul>
+          </aside>
         </div>
-        <p class="demo-fallback">Trouble loading the demo? <a href="https://pjlim21.github.io/kineura_mockup/" target="_blank" rel="noopener">Open it in a new tab →</a></p>
       </div>
     </section>
 
@@ -207,18 +370,22 @@
         </div>
         <div class="use-grid">
           <div class="use-card">
+            <div class="use-photo"><img src="assets/img/athlete-sprint.jpg" alt="Runner sprinting on a track" loading="lazy" /></div>
             <h3>Runners</h3>
             <p>Train with awareness. Spot fatigue and imbalance before they turn into setbacks.</p>
           </div>
           <div class="use-card">
+            <div class="use-photo"><img src="assets/img/athlete-coach.jpg" alt="Coach reviewing data with athlete" loading="lazy" /></div>
             <h3>Coaches</h3>
             <p>Bring objective neuromuscular data into the conversation about load, form, and readiness.</p>
           </div>
           <div class="use-card">
+            <div class="use-photo"><img src="assets/img/athlete-pt.jpg" alt="Physical therapist working with athlete" loading="lazy" /></div>
             <h3>Physical Therapists</h3>
             <p>Track return-to-run progress with side-by-side activation and symmetry over time.</p>
           </div>
           <div class="use-card">
+            <div class="use-photo"><img src="assets/img/athlete-strength.jpg" alt="Strength training session in a performance lab" loading="lazy" /></div>
             <h3>Performance Labs</h3>
             <p>Capture lab-grade EMG and motion data outside the lab, in real training environments.</p>
           </div>
@@ -318,11 +485,7 @@
     <div class="container footer-inner">
       <div class="footer-brand">
         <a class="brand" href="#top" aria-label="Kineura home">
-          <svg class="brand-mark" viewBox="0 0 32 32" aria-hidden="true">
-            <path d="M4 22 L10 12 L14 18 L20 6 L28 22" fill="none" stroke="#2dd4bf" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round"/>
-            <circle cx="20" cy="6" r="2.2" fill="#2dd4bf"/>
-          </svg>
-          <span class="brand-name">Kineura</span>
+          <img class="brand-logo" src="assets/img/kineura-wordmark-white.png" alt="Kineura" width="140" height="36" />
         </a>
         <p class="footer-tag">Insights at every stride.</p>
       </div>
@@ -357,6 +520,35 @@
       <p class="footer-disclaimer">Kineura supports training insight, not medical diagnosis or treatment.</p>
     </div>
   </footer>
+
+  <!-- Metric detail modal -->
+  <div class="modal" id="metricModal" aria-hidden="true" role="dialog" aria-modal="true" aria-labelledby="metricModalTitle">
+    <div class="modal-backdrop" data-modal-close></div>
+    <div class="modal-panel" role="document">
+      <button class="modal-close" type="button" aria-label="Close" data-modal-close>
+        <svg viewBox="0 0 24 24" aria-hidden="true"><path d="M6 6l12 12M18 6L6 18" stroke="currentColor" stroke-width="2.2" stroke-linecap="round"/></svg>
+      </button>
+      <p class="modal-eyebrow" id="metricModalTag">Metric</p>
+      <h3 class="modal-title" id="metricModalTitle">—</h3>
+      <p class="modal-tagline" id="metricModalTagline">—</p>
+      <div class="modal-section">
+        <h4>What is it?</h4>
+        <p id="metricModalWhat">—</p>
+      </div>
+      <div class="modal-section">
+        <h4>How is it measured?</h4>
+        <p id="metricModalHow">—</p>
+      </div>
+      <div class="modal-section">
+        <h4>Why it matters</h4>
+        <p id="metricModalWhy">—</p>
+      </div>
+      <div class="modal-section modal-research">
+        <h4>Research validation</h4>
+        <p id="metricModalResearch">—</p>
+      </div>
+    </div>
+  </div>
 
   <script src="script.js" defer></script>
 </body>

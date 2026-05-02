@@ -10,7 +10,8 @@ Pure static site, no build step:
 
 - `index.html` — single-page site with all sections
 - `styles.css` — design system, layout, and responsive rules
-- `script.js` — header, mobile nav, scroll reveal, form handling
+- `script.js` — header, mobile nav, scroll reveal, metric modal, native phone demo (tabs, EMG waveform, detail drawer), form handling
+- `assets/img/` — photography for hero, metric cards, use cases, plus the Kineura wordmark
 - `favicon.svg`, `og-image.svg` — assets
 - `404.html` — friendly fallback for GitHub Pages
 - `robots.txt`, `sitemap.xml` — basic SEO
@@ -28,7 +29,14 @@ npx serve .
 
 Then visit http://localhost:8080/.
 
-The interactive demo iframe loads `https://pjlim21.github.io/kineura_mockup/`. If that domain is unreachable, the page also renders a fallback "Open it in a new tab" link.
+The interactive demo is now implemented natively in the page (no iframe). It mirrors the dashboard, EMG, and trends views from the original `kineura_mockup`, with tap-through metric detail (What is it / How is it measured / Why it matters / Research validation).
+
+## Assets
+
+- `assets/img/kineura-wordmark-white.png` — Kineura wordmark (sourced from the live Wix site).
+- `assets/img/hero-poster.jpg` — fallback poster for the hero video, taken from the Wix hero clip.
+- The hero `<video>` streams directly from `https://video.wixstatic.com/video/bee5e3_57d041944a114fd59c90aa651ebfb15c/720p/mp4/file.mp4` so the same footage that appears on `kineura.com` plays here. If you'd rather self-host, download that file and any preferred resolution variant into `assets/video/` and update `index.html`.
+- `assets/img/metric-*.jpg` and `athlete-*.jpg` — sport / training photography from Unsplash (license: free for commercial and editorial use). Replace with your own art when available.
 
 ## Enabling GitHub Pages (private repo)
 
