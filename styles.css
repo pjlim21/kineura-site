@@ -307,33 +307,22 @@ a:hover { color: #5eead4; }
   position: relative;
   border-radius: var(--radius-lg);
   overflow: hidden;
-  background: #f8f7f3;
-  border: 1px solid rgba(255,255,255,0.08);
-  padding: 28px 32px;
+  background: transparent;
+  border: 0;
+  padding: 0;
   box-shadow:
     0 30px 80px -30px rgba(0,0,0,0.75),
-    0 0 0 1px rgba(45,212,191,0.06),
-    0 1px 0 rgba(255,255,255,0.04) inset;
-}
-.problem-figure-frame::before {
-  content: "";
-  position: absolute;
-  inset: 0;
-  pointer-events: none;
-  border-radius: var(--radius-lg);
-  box-shadow: 0 0 0 1px rgba(0,0,0,0.04) inset;
+    0 0 0 1px rgba(45,212,191,0.08);
 }
 .problem-figure-frame img {
-  position: relative;
+  display: block;
   width: 100%;
   height: auto;
-  display: block;
-  border-radius: 6px;
+  border-radius: inherit;
   background: transparent;
 }
 @media (max-width: 980px) {
   .problem-grid { grid-template-columns: 1fr; gap: 36px; }
-  .problem-figure-frame { padding: 20px 22px; }
 }
 
 /* How it works */
