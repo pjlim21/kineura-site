@@ -89,7 +89,7 @@ a:hover { color: #5eead4; }
   display: flex;
   align-items: center;
   justify-content: space-between;
-  height: 84px;
+  height: 64px;
 }
 .brand {
   display: inline-flex;
@@ -108,8 +108,8 @@ a:hover { color: #5eead4; }
 .site-footer .brand-logo { height: 32px; }
 
 @media (max-width: 720px) {
-  .header-inner { height: 72px; }
-  .brand-logo { height: 30px; }
+  .header-inner { height: 56px; }
+  .brand-logo { height: 28px; }
   .site-footer .brand-logo { height: 28px; }
 }
 
@@ -307,7 +307,7 @@ a:hover { color: #5eead4; }
   position: relative;
   border-radius: var(--radius-lg);
   overflow: hidden;
-  background: #f5f1ea;
+  background: #f8f7f3;
   border: 1px solid rgba(255,255,255,0.08);
   padding: 28px 32px;
   box-shadow:
@@ -1171,7 +1171,7 @@ body.modal-open { overflow: hidden; }
   .nav-toggle { display: inline-flex; }
   .nav-list {
     position: absolute;
-    top: 72px; right: 12px; left: 12px;
+    top: 56px; right: 12px; left: 12px;
     flex-direction: column;
     align-items: stretch;
     gap: 6px;

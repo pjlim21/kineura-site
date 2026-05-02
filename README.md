@@ -78,7 +78,7 @@ All copy on the site is approved messaging. Notable lines:
 
 - Hero headline: *Insights at every stride.*
 - Hero subhead: *Kineura combines wearable EMG and motion sensing to help runners and athletes understand fatigue, imbalance, biomechanics, and recovery in real time.*
-- Problem statement: *Most wearables track the workout. Kineura tracks how your body is handling it.*
+- Problem statement: *Most wearables track the workout. Kineura tracks how your body handles it.*
 - Responsible-claims block: *Kineura supports training insight and performance decision-making. It is not a substitute for medical diagnosis or treatment.*
 
 ## Early access form
