@@ -328,4 +328,80 @@
       }
     });
   }
+
+  // ---- Sleeve explainer connector lines ----
+  // Draw SVG lines from each callout card's image-side edge to the corresponding
+  // dot on the sleeve image. Recompute on resize / image load so endpoints stay
+  // glued to the real DOM rects regardless of viewport width.
+  (function initSleeveConnectors() {
+    var stage = document.querySelector('.sleeve-stage');
+    if (!stage) return;
+    var svg = stage.querySelector('.sleeve-lines');
+    if (!svg) return;
+    var image = stage.querySelector('.sleeve-image');
+
+    // callout key -> { calloutSel, dotSel, side }
+    var pairs = [
+      { key: 'tl', calloutSel: '.sleeve-callout--tl', dotSel: '.sleeve-dot--emg',  side: 'left'  },
+      { key: 'tr', calloutSel: '.sleeve-callout--tr', dotSel: '.sleeve-dot--imu',  side: 'right' },
+      { key: 'bl', calloutSel: '.sleeve-callout--bl', dotSel: '.sleeve-dot--fit',  side: 'left'  },
+      { key: 'br', calloutSel: '.sleeve-callout--br', dotSel: '.sleeve-dot--sync', side: 'right' }
+    ];
+
+    function center(rect) { return { x: rect.left + rect.width / 2, y: rect.top + rect.height / 2 }; }
+
+    function update() {
+      // If the figure is in the stacked/mobile layout, callouts are display:none.
+      // In that case, just hide the lines.
+      var sample = stage.querySelector('.sleeve-callout--tl');
+      if (!sample || getComputedStyle(sample).display === 'none') {
+        svg.classList.remove('is-ready');
+        return;
+      }
+
+      var sRect = stage.getBoundingClientRect();
+      pairs.forEach(function (p) {
+        var line = svg.querySelector('line[data-callout="' + p.key + '"]');
+        var card = stage.querySelector(p.calloutSel + ' .sleeve-callout-card');
+        var dot = stage.querySelector(p.dotSel);
+        if (!line || !card || !dot) return;
+
+        var cardRect = card.getBoundingClientRect();
+        var dotRect = dot.getBoundingClientRect();
+        var dotC = center(dotRect);
+
+        // Anchor at the card's image-facing edge, vertically centered.
+        var x1 = (p.side === 'left' ? cardRect.right : cardRect.left) - sRect.left;
+        var y1 = cardRect.top + cardRect.height / 2 - sRect.top;
+        var x2 = dotC.x - sRect.left;
+        var y2 = dotC.y - sRect.top;
+
+        line.setAttribute('x1', x1.toFixed(1));
+        line.setAttribute('y1', y1.toFixed(1));
+        line.setAttribute('x2', x2.toFixed(1));
+        line.setAttribute('y2', y2.toFixed(1));
+      });
+      svg.classList.add('is-ready');
+    }
+
+    // Recompute on resize and after the image loads (size may change).
+    var raf;
+    function schedule() {
+      if (raf) cancelAnimationFrame(raf);
+      raf = requestAnimationFrame(update);
+    }
+    window.addEventListener('resize', schedule, { passive: true });
+    if (image) {
+      if (image.complete) schedule();
+      else image.addEventListener('load', schedule);
+    }
+    if (document.fonts && document.fonts.ready) {
+      document.fonts.ready.then(schedule).catch(function () {});
+    }
+    // Also observe the stage box itself; cards reflow as content/fonts settle.
+    if (typeof ResizeObserver !== 'undefined') {
+      try { new ResizeObserver(schedule).observe(stage); } catch (e) { /* no-op */ }
+    }
+    schedule();
+  })();
 })();

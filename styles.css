@@ -400,23 +400,23 @@ a:hover { color: #5eead4; }
   100% { transform: scale(1.7); opacity: 0; }
 }
 
-/* Each callout is a grid cell with a card and a connector line.
-   The line emerges from the card's inner edge and stretches toward the image. */
+/* Each callout is a grid cell holding only a card; connector lines are drawn
+   in the .sleeve-lines SVG overlay so they can extend all the way to the dot. */
 .sleeve-callout {
   position: relative;
   display: flex;
   align-items: center;
-  gap: 8px;
   z-index: 2;
 }
-.sleeve-callout--tl { grid-column: 1; grid-row: 1; }
-.sleeve-callout--bl { grid-column: 1; grid-row: 2; }
-.sleeve-callout--tr { grid-column: 3; grid-row: 1; flex-direction: row-reverse; }
-.sleeve-callout--br { grid-column: 3; grid-row: 2; flex-direction: row-reverse; }
+.sleeve-callout--tl { grid-column: 1; grid-row: 1; justify-content: flex-start; }
+.sleeve-callout--bl { grid-column: 1; grid-row: 2; justify-content: flex-start; }
+.sleeve-callout--tr { grid-column: 3; grid-row: 1; justify-content: flex-end; }
+.sleeve-callout--br { grid-column: 3; grid-row: 2; justify-content: flex-end; }
 
 .sleeve-callout-card {
-  flex: 1 1 auto;
+  flex: 0 1 auto;
   min-width: 0;
+  width: 100%;
   padding: 10px 12px;
   background: rgba(8, 12, 14, 0.85);
   backdrop-filter: blur(12px);
@@ -451,33 +451,28 @@ a:hover { color: #5eead4; }
   margin: 0;
 }
 
-/* Connector line — points horizontally from card inner edge toward image. */
-.sleeve-callout-line {
-  flex: 0 0 16px;
-  height: 1px;
-  background: linear-gradient(90deg, rgba(45,212,191,0.95), rgba(45,212,191,0.2));
-  position: relative;
-}
-.sleeve-callout-line::after {
-  content: "";
+/* SVG connector overlay — sits above the image, below the cards.
+   JS sets x1/y1/x2/y2 in pixel space, matching the actual DOM rects of
+   each card's inner edge and each dot's center. */
+.sleeve-lines {
   position: absolute;
-  right: -2px;
-  top: -2px;
-  width: 4px;
-  height: 4px;
-  border-radius: 50%;
-  background: var(--accent);
-  box-shadow: 0 0 8px rgba(45,212,191,0.7);
+  inset: 0;
+  width: 100%;
+  height: 100%;
+  pointer-events: none;
+  z-index: 2;
+  overflow: visible;
 }
-.sleeve-callout--tr .sleeve-callout-line,
-.sleeve-callout--br .sleeve-callout-line {
-  background: linear-gradient(270deg, rgba(45,212,191,0.95), rgba(45,212,191,0.2));
+.sleeve-line {
+  stroke-width: 1.5;
+  stroke-linecap: round;
+  fill: none;
+  vector-effect: non-scaling-stroke;
+  opacity: 0;
+  transition: opacity 220ms ease;
+  filter: drop-shadow(0 0 5px rgba(45,212,191,0.6));
 }
-.sleeve-callout--tr .sleeve-callout-line::after,
-.sleeve-callout--br .sleeve-callout-line::after {
-  right: auto;
-  left: -2px;
-}
+.sleeve-lines.is-ready .sleeve-line { opacity: 1; }
 
 /* Fallback feature list (mobile / narrow) */
 .sleeve-feature-list {

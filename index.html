@@ -82,56 +82,75 @@
             <div class="sleeve-stage">
               <div class="sleeve-glow" aria-hidden="true"></div>
 
-              <!-- Top-left callout (EMG electrodes) -->
+              <!-- Top-left callout (EMG electrodes — points to upper electrode pad) -->
               <div class="sleeve-callout sleeve-callout--tl">
                 <div class="sleeve-callout-card">
                   <p class="sleeve-callout-eyebrow">01 · Sensing</p>
                   <h3 class="sleeve-callout-title">EMG Dry Electrodes</h3>
                   <p class="sleeve-callout-text">No gel, no prep. Just put it on and go.</p>
                 </div>
-                <span class="sleeve-callout-line" aria-hidden="true"></span>
               </div>
 
-              <!-- Top-right callout (IMU) -->
+              <!-- Top-right callout (IMU — points to central hex hub) -->
               <div class="sleeve-callout sleeve-callout--tr">
                 <div class="sleeve-callout-card">
                   <p class="sleeve-callout-eyebrow">02 · Motion</p>
                   <h3 class="sleeve-callout-title">IMU Sensor</h3>
                   <p class="sleeve-callout-text">Captures motion data from every stride.</p>
                 </div>
-                <span class="sleeve-callout-line" aria-hidden="true"></span>
               </div>
 
               <!-- Image with positioned sensor dots -->
               <div class="sleeve-image-wrap">
                 <img class="sleeve-image" src="assets/img/kineura-sleeve.jpg" alt="Kineura lower-leg biosensor sleeve worn on a calf, showing the central hub, integrated electrode pads, and signal traces" loading="lazy" />
                 <div class="sleeve-dots" aria-hidden="true">
-                  <span class="sleeve-callout-dot" style="--cx:38%; --cy:26%;"></span>
-                  <span class="sleeve-callout-dot" style="--cx:56%; --cy:44%;"></span>
-                  <span class="sleeve-callout-dot" style="--cx:28%; --cy:70%;"></span>
-                  <span class="sleeve-callout-dot" style="--cx:60%; --cy:53%;"></span>
+                  <!-- 01 EMG: upper electrode pad -->
+                  <span class="sleeve-callout-dot sleeve-dot--emg" style="--cx:39%; --cy:21%;"></span>
+                  <!-- 02 IMU: top edge of hex hub -->
+                  <span class="sleeve-callout-dot sleeve-dot--imu" style="--cx:55%; --cy:42%;"></span>
+                  <!-- 03 Compression: lower sleeve fabric body -->
+                  <span class="sleeve-callout-dot sleeve-dot--fit" style="--cx:33%; --cy:80%;"></span>
+                  <!-- 04 Wireless Sync: right side of hex hub / connected module -->
+                  <span class="sleeve-callout-dot sleeve-dot--sync" style="--cx:62%; --cy:53%;"></span>
                 </div>
               </div>
 
-              <!-- Bottom-left callout (Compression) -->
+              <!-- Bottom-left callout (Compression — points to lower sleeve fabric) -->
               <div class="sleeve-callout sleeve-callout--bl">
                 <div class="sleeve-callout-card">
                   <p class="sleeve-callout-eyebrow">03 · Fit</p>
-                  <h3 class="sleeve-callout-title">Compression Sleeve</h3>
+                  <h3 class="sleeve-callout-title">Multi-Layer Compression Sleeve</h3>
                   <p class="sleeve-callout-text">Keeps electronics precisely positioned from training runs to race day.</p>
                 </div>
-                <span class="sleeve-callout-line" aria-hidden="true"></span>
               </div>
 
-              <!-- Bottom-right callout (Wireless Sync) -->
+              <!-- Bottom-right callout (Wireless Sync — points to hub/module region) -->
               <div class="sleeve-callout sleeve-callout--br">
                 <div class="sleeve-callout-card">
                   <p class="sleeve-callout-eyebrow">04 · Sync</p>
                   <h3 class="sleeve-callout-title">Wireless Sync</h3>
                   <p class="sleeve-callout-text">Real-time stream. Your results are ready before you catch your breath.</p>
                 </div>
-                <span class="sleeve-callout-line" aria-hidden="true"></span>
               </div>
+
+              <!-- Connector line overlay — endpoint coordinates are computed in pixels by JS
+                   from card edges and dot positions, then redrawn on resize. -->
+              <svg class="sleeve-lines" aria-hidden="true">
+                <defs>
+                  <linearGradient id="sleeveLineL" x1="0" y1="0" x2="1" y2="0">
+                    <stop offset="0" stop-color="#2dd4bf" stop-opacity="0.25" />
+                    <stop offset="1" stop-color="#2dd4bf" stop-opacity="0.95" />
+                  </linearGradient>
+                  <linearGradient id="sleeveLineR" x1="1" y1="0" x2="0" y2="0">
+                    <stop offset="0" stop-color="#2dd4bf" stop-opacity="0.25" />
+                    <stop offset="1" stop-color="#2dd4bf" stop-opacity="0.95" />
+                  </linearGradient>
+                </defs>
+                <line class="sleeve-line" data-callout="tl" data-dot="emg"  stroke="url(#sleeveLineL)" />
+                <line class="sleeve-line" data-callout="tr" data-dot="imu"  stroke="url(#sleeveLineR)" />
+                <line class="sleeve-line" data-callout="bl" data-dot="fit"  stroke="url(#sleeveLineL)" />
+                <line class="sleeve-line" data-callout="br" data-dot="sync" stroke="url(#sleeveLineR)" />
+              </svg>
             </div>
 
             <!-- Mobile/fallback list: shown when callouts can't sit cleanly over the image -->
