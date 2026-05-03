@@ -1,7 +1,7 @@
 (function () {
   'use strict';
 
-  // ---- Metric content (powers both the page modal and the demo phone detail view) ----
+  // ---- Metric content (powers the page-level metric modal) ----
   var METRICS = {
     muscle: {
       title: 'Muscle Activation',
@@ -169,128 +169,6 @@
     });
   });
 
-  // ---- Demo phone: tabs ----
-  var phone = document.getElementById('kineuraPhone');
-  if (phone) {
-    var tabs = phone.querySelectorAll('.app-tab');
-    var views = phone.querySelectorAll('.app-view');
-    tabs.forEach(function (tab) {
-      tab.addEventListener('click', function () {
-        var target = tab.getAttribute('data-tab');
-        tabs.forEach(function (t) {
-          var on = t === tab;
-          t.classList.toggle('active', on);
-          t.setAttribute('aria-selected', on ? 'true' : 'false');
-        });
-        views.forEach(function (v) {
-          var match = v.id === 'view-' + target;
-          v.classList.toggle('active', match);
-          if (match) v.removeAttribute('hidden'); else v.setAttribute('hidden', '');
-        });
-        // Always close detail when switching tabs
-        var detail = document.getElementById('appDetail');
-        if (detail) detail.setAttribute('hidden', '');
-      });
-    });
-
-    // Mini-card -> in-app detail view
-    var detail = document.getElementById('appDetail');
-    var dTitle = document.getElementById('appDetailTitle');
-    var dValue = document.getElementById('appDetailValue');
-    var dFill = document.getElementById('appDetailFill');
-    var dWhat = document.getElementById('appDetailWhat');
-    var dHow = document.getElementById('appDetailHow');
-    var dWhy = document.getElementById('appDetailWhy');
-    var dRes = document.getElementById('appDetailResearch');
-
-    function showAppDetail(key) {
-      var m = METRICS[key];
-      if (!m || !detail) return;
-      dTitle.textContent = m.title;
-      dValue.textContent = m.value;
-      dFill.style.setProperty('--w', m.fill + '%');
-      dWhat.textContent = m.what;
-      dHow.textContent = m.how;
-      dWhy.textContent = m.why;
-      dRes.textContent = m.research;
-      detail.removeAttribute('hidden');
-      var back = detail.querySelector('.app-back');
-      if (back) back.focus();
-    }
-    function hideAppDetail() {
-      if (detail) detail.setAttribute('hidden', '');
-    }
-    phone.querySelectorAll('.app-mini-card').forEach(function (card) {
-      var key = card.getAttribute('data-metric');
-      card.addEventListener('click', function () { showAppDetail(key); });
-    });
-    var backBtn = phone.querySelector('.app-back');
-    if (backBtn) backBtn.addEventListener('click', hideAppDetail);
-
-    // Live clock in the app header
-    var appTime = document.getElementById('appTime');
-    function updateAppTime() {
-      if (!appTime) return;
-      var d = new Date();
-      var h = d.getHours();
-      var m = d.getMinutes();
-      appTime.textContent = (h < 10 ? '0' + h : h) + ':' + (m < 10 ? '0' + m : m);
-    }
-    updateAppTime();
-    setInterval(updateAppTime, 30000);
-
-    // EMG waveform animation
-    var emgLine = document.getElementById('emgLine');
-    var emgArea = document.getElementById('emgArea');
-    var emgRms = document.getElementById('emgRms');
-    var emgHz = document.getElementById('emgHz');
-    if (emgLine && emgArea) {
-      var W = 320, H = 140;
-      var SAMPLES = 80;
-      var buffer = new Array(SAMPLES).fill(H / 2);
-      var t = 0;
-      var prefersReduced = window.matchMedia('(prefers-reduced-motion: reduce)').matches;
-
-      function step() {
-        t += 0.18;
-        // EMG-like burst: noise enveloped by slow sinusoid
-        var env = 0.5 + 0.45 * Math.sin(t * 0.35);
-        var spike = (Math.random() - 0.5) * 2;
-        var v = H / 2 + spike * 42 * env + Math.sin(t * 1.4) * 6;
-        buffer.shift();
-        buffer.push(v);
-
-        var d = '';
-        var area = '';
-        for (var i = 0; i < SAMPLES; i++) {
-          var x = (i / (SAMPLES - 1)) * W;
-          var y = buffer[i];
-          d += (i === 0 ? 'M' : 'L') + x.toFixed(1) + ',' + y.toFixed(1) + ' ';
-        }
-        area = d + 'L' + W + ',' + H + ' L0,' + H + ' Z';
-        emgLine.setAttribute('d', d);
-        emgArea.setAttribute('d', area);
-
-        if (emgRms) emgRms.textContent = (0.32 + env * 0.22).toFixed(2);
-        if (emgHz) emgHz.textContent = Math.round(82 + env * 22);
-      }
-      function tick() { step(); rafId = requestAnimationFrame(tick); }
-      var rafId = null;
-      function start() { if (rafId == null && !prefersReduced) tick(); }
-      function stop() { if (rafId != null) { cancelAnimationFrame(rafId); rafId = null; } }
-      // Only animate when phone is visible
-      if ('IntersectionObserver' in window) {
-        var phoneIo = new IntersectionObserver(function (entries) {
-          entries.forEach(function (e) { if (e.isIntersecting) start(); else stop(); });
-        }, { threshold: 0.2 });
-        phoneIo.observe(phone);
-      } else {
-        start();
-      }
-      // Pre-fill once so the EMG view isn't empty before animation kicks in
-      step();
-    }
-  }
 
   // ---- Early-access form ----
   var form = document.getElementById('earlyAccessForm');
