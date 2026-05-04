@@ -705,6 +705,7 @@ a:hover { color: #5eead4; }
   background: linear-gradient(180deg, #1a1f24 0%, #0c1115 100%);
   border-radius: 44px;
   padding: 14px;
+  overflow: hidden;
   box-shadow:
     0 0 0 2px #000,
     0 30px 80px -20px rgba(0,0,0,0.85),
@@ -729,7 +730,12 @@ a:hover { color: #5eead4; }
   border-radius: 32px;
   background: #050708;
   display: block;
+  /* Parent-side fallback; cross-origin iframe scrollbars are owned by the
+     embedded document, so we additionally rely on the bezel clipping below. */
+  scrollbar-width: none;
+  -ms-overflow-style: none;
 }
+.demo-frame-iframe::-webkit-scrollbar { width: 0; height: 0; display: none; }
 /* Demo side panel */
 .demo-side h3 {
   font-size: clamp(20px, 2.2vw, 28px);
