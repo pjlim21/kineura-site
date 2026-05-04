@@ -686,7 +686,13 @@ a:hover { color: #5eead4; }
   outline-offset: 4px;
 }
 
-/* Demo — original mockup iframe */
+/* Demo — original mockup iframe, cropped to phone screen only.
+   The standalone mockup at pjlim21.github.io/kineura_mockup renders a fixed
+   375x812 phone column centered horizontally with ~332px of title chrome
+   above and ~48px footer below. We render the iframe at its natural pixel
+   size, translate it upward to hide the title, and let the bezel clip the
+   footer. A small JS hook scales the iframe to fit the bezel inner width.
+*/
 .demo-wrap {
   display: grid;
   grid-template-columns: minmax(0, 1fr) minmax(0, 1fr);
@@ -701,7 +707,6 @@ a:hover { color: #5eead4; }
 .demo-frame-bezel {
   position: relative;
   width: 100%;
-  aspect-ratio: 9 / 19;
   background: linear-gradient(180deg, #1a1f24 0%, #0c1115 100%);
   border-radius: 44px;
   padding: 14px;
@@ -723,15 +728,33 @@ a:hover { color: #5eead4; }
   z-index: 5;
   pointer-events: none;
 }
-.demo-frame-iframe {
+.demo-frame-viewport {
+  position: relative;
   width: 100%;
-  height: 100%;
-  border: 0;
+  /* Match the phone screen aspect ratio (375:812) so the bezel inner area
+     hugs the visible phone exactly with no dead space. */
+  aspect-ratio: 375 / 812;
   border-radius: 32px;
+  overflow: hidden;
+  background: #050708;
+}
+.demo-frame-iframe {
+  /* The standalone mockup uses min-h-screen with a vertically-centered flex
+     column (title + "LIVE WORKOUT" eyebrow + 375x812 phone + footer text).
+     The column is 984px tall total, so at iframe height 1400 the phone lands
+     at y=332 with 332px of chrome above (title block) and 256px below (footer
+     gap + caption). We translate by -332*scale to hide the title chrome and
+     let the bezel (matched to the phone aspect) clip the bottom footer. */
+  position: absolute;
+  top: 0;
+  left: 0;
+  width: 375px;
+  height: 1400px;
+  border: 0;
   background: #050708;
   display: block;
-  /* Parent-side fallback; cross-origin iframe scrollbars are owned by the
-     embedded document, so we additionally rely on the bezel clipping below. */
+  transform-origin: top left;
+  transform: translateY(calc(-332px * var(--demo-scale, 1))) scale(var(--demo-scale, 1));
   scrollbar-width: none;
   -ms-overflow-style: none;
 }

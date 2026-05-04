@@ -328,4 +328,24 @@
     }
     schedule();
   })();
+
+  // Demo iframe crop: scale the embedded mockup so its 375px-wide phone
+  // column fills the bezel viewport, regardless of responsive bezel width.
+  (function () {
+    var viewport = document.querySelector('.demo-frame-viewport');
+    if (!viewport) return;
+    var MOCKUP_PHONE_WIDTH = 375;
+    function update() {
+      var w = viewport.clientWidth;
+      if (!w) return;
+      var scale = w / MOCKUP_PHONE_WIDTH;
+      viewport.style.setProperty('--demo-scale', String(scale));
+    }
+    update();
+    if (typeof ResizeObserver !== 'undefined') {
+      try { new ResizeObserver(update).observe(viewport); } catch (e) { /* no-op */ }
+    } else {
+      window.addEventListener('resize', update, { passive: true });
+    }
+  })();
 })();
