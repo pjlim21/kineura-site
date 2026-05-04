@@ -1,0 +1,4 @@
+User-agent: *
+Allow: /
+
+Sitemap: https://pjlim21.github.io/kineura-site/sitemap.xml
