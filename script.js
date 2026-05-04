@@ -171,16 +171,23 @@
 
 
   // ---- Early-access form ----
+  // Progressive enhancement over the native FormSubmit.co POST. With JS, we
+  // submit via fetch to the AJAX endpoint and surface the result inline so
+  // the user stays on the page. Without JS, the form's native `action` still
+  // posts to FormSubmit and the user is redirected to the `_next` URL.
   var form = document.getElementById('earlyAccessForm');
   var note = document.getElementById('formNote');
-  if (form) {
+  if (form && window.fetch && window.FormData) {
     form.addEventListener('submit', function (e) {
-      e.preventDefault();
-      var name = (form.elements.namedItem('name') || {}).value || '';
-      var email = (form.elements.namedItem('email') || {}).value || '';
-      var role = (form.elements.namedItem('role') || {}).value || '';
+      var emailField = form.elements.namedItem('email');
+      var email = (emailField && emailField.value) || '';
+      var honey = (form.elements.namedItem('_honey') || {}).value || '';
+
+      // Honeypot: silently drop bot submissions on the client too.
+      if (honey) { e.preventDefault(); return; }
 
       if (!email || email.indexOf('@') < 1) {
+        e.preventDefault();
         if (note) {
           note.textContent = 'Please enter a valid email address.';
           note.classList.remove('success');
@@ -189,22 +196,61 @@
         return;
       }
 
-      var subject = encodeURIComponent('Kineura early access request');
-      var body = encodeURIComponent(
-        'Hi Kineura team,\n\n' +
-        'I would like to join the early access list.\n\n' +
-        'Name: ' + name + '\n' +
-        'Email: ' + email + '\n' +
-        'Role: ' + role + '\n'
-      );
-      window.location.href = 'mailto:hello@kineura.com?subject=' + subject + '&body=' + body;
-
+      e.preventDefault();
+      var submitBtn = form.querySelector('button[type="submit"]');
+      if (submitBtn) { submitBtn.disabled = true; submitBtn.textContent = 'Sending…'; }
       if (note) {
-        note.textContent = 'Thanks! Your email client should open with a pre-filled message.';
-        note.classList.remove('error');
-        note.classList.add('success');
+        note.textContent = 'Sending your request…';
+        note.classList.remove('success', 'error');
       }
+
+      var data = new FormData(form);
+      // FormSubmit's AJAX endpoint accepts JSON and returns JSON.
+      var json = {};
+      data.forEach(function (v, k) { json[k] = v; });
+      var actionUrl = form.getAttribute('action') || '';
+      var ajaxUrl = actionUrl.replace('formsubmit.co/', 'formsubmit.co/ajax/');
+
+      fetch(ajaxUrl, {
+        method: 'POST',
+        headers: { 'Content-Type': 'application/json', 'Accept': 'application/json' },
+        body: JSON.stringify(json)
+      }).then(function (res) {
+        return res.json().catch(function () { return {}; });
+      }).then(function (body) {
+        var ok = body && (body.success === 'true' || body.success === true);
+        if (ok) {
+          form.reset();
+          if (note) {
+            note.textContent = 'Thanks! We received your request and will be in touch.';
+            note.classList.remove('error');
+            note.classList.add('success');
+          }
+        } else {
+          if (note) {
+            note.textContent = (body && body.message) || 'Something went wrong. Please try again or email hello@kineura.com.';
+            note.classList.remove('success');
+            note.classList.add('error');
+          }
+        }
+      }).catch(function () {
+        if (note) {
+          note.textContent = 'Network error. Please try again or email hello@kineura.com.';
+          note.classList.remove('success');
+          note.classList.add('error');
+        }
+      }).then(function () {
+        if (submitBtn) { submitBtn.disabled = false; submitBtn.textContent = 'Request Early Access'; }
+      });
     });
+  }
+
+  // If FormSubmit's `_next` redirect bounced us back with ?ea=thanks (used in
+  // the no-JS path), surface a friendly confirmation near the form.
+  if (note && /[?&]ea=thanks\b/.test(window.location.search)) {
+    note.textContent = 'Thanks! We received your request and will be in touch.';
+    note.classList.remove('error');
+    note.classList.add('success');
   }
 
   // ---- Sleeve explainer connector lines ----

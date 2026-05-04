@@ -10,7 +10,7 @@ Pure static site, no build step:
 
 - `index.html` — single-page site with all sections
 - `styles.css` — design system, layout, and responsive rules
-- `script.js` — header, mobile nav, scroll reveal, metric modal, native phone demo (tabs, EMG waveform, detail drawer), form handling
+- `script.js` — header, mobile nav, scroll reveal, metric modal, sleeve diagram connector lines, early-access form (progressive-enhancement AJAX over FormSubmit.co)
 - `assets/img/` — photography for hero, metric cards, use cases, plus the Kineura wordmark
 - `favicon.svg`, `og-image.svg` — assets
 - `404.html` — friendly fallback for GitHub Pages
@@ -84,7 +84,51 @@ All copy on the site is approved messaging. Notable lines:
 
 ## Early access form
 
-The form on the page is **not** wired to a backend. Submitting it opens the user's email client with a pre-filled message to `hello@kineura.com`. The UI clearly states this. Replace `hello@kineura.com` in `index.html` and `script.js` if you want a different inbox, or wire it up to a service such as Formspree, Netlify Forms, or a custom endpoint when ready.
+The form is wired to [FormSubmit.co](https://formsubmit.co), a free form-relay
+service that lets a static site receive submissions without a backend.
+Submissions are delivered to **`pjlim21@gmail.com`** via email.
+
+Captured fields: **name, email, role, message** (plus a hidden honeypot for
+spam) and FormSubmit's standard reCAPTCHA challenge.
+
+### First-time activation (one-time, manual)
+
+FormSubmit requires the recipient to confirm the address before it will
+relay submissions. Until that's done, FormSubmit responds to any submit by
+sending an activation email instead of forwarding the form data.
+
+1. Deploy the site (or run it locally) and submit the form once with any
+   real email address.
+2. Open the inbox at **`pjlim21@gmail.com`** — there will be an email from
+   FormSubmit titled something like *"Confirm your email"*. Click the
+   activation link inside.
+3. From that point on, every form submission is forwarded to
+   `pjlim21@gmail.com` formatted as a table (name / email / role / message).
+
+> Until activation, real visitors who try to submit will see FormSubmit's
+> activation prompt instead of the success message. Activate before
+> launching publicly.
+
+### Hiding the email address (optional, post-activation)
+
+The plain endpoint embeds the email in the page HTML, which scrapers can
+read. After activation, FormSubmit emails a random alias URL (e.g.
+`https://formsubmit.co/<random-hash>`). Swap the `action=` attribute on the
+`<form>` in `index.html` to that alias to keep the address out of the page.
+
+### Switching providers later
+
+To move to Formspree, Netlify Forms, Wix Forms (via a Wix backend HTTP
+function), or a custom endpoint, replace the `<form action="…">` URL and
+the matching AJAX URL transform in `script.js`. The form's field names
+(`name`, `email`, `role`, `message`) are conventional and map cleanly to
+most providers.
+
+### Privacy / messaging note
+
+The form's small print states: *Submissions are sent to Kineura for early
+access follow-up. We'll never share your address.* No automated CRM or
+analytics tracking is implemented — submissions arrive as plain email.
 
 ## Accessibility & SEO
 

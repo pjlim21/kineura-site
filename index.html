@@ -311,9 +311,6 @@
                 referrerpolicy="no-referrer-when-downgrade"
                 allow="accelerometer; gyroscope; clipboard-read; clipboard-write"></iframe>
             </div>
-            <p class="demo-frame-fallback">
-              <a href="https://pjlim21.github.io/kineura_mockup/" target="_blank" rel="noopener noreferrer">Open full demo ↗</a>
-            </p>
           </div>
 
           <aside class="demo-side">
@@ -408,13 +405,32 @@
             <h2>Be among the first to train with Kineura.</h2>
             <p>Join the early access list to receive product updates, research notes, and an invitation when units become available.</p>
           </div>
-          <form class="cta-form" id="earlyAccessForm" novalidate>
+          <!--
+            Early access form is wired to FormSubmit.co — a free, no-backend HTML
+            form relay. Submissions go to pjlim21@gmail.com.
+
+            First-time activation: the very first submission triggers an
+            activation email from FormSubmit to pjlim21@gmail.com. Click the
+            confirmation link in that email; subsequent submissions then
+            deliver normally. See README for details.
+
+            To swap to the hashed endpoint (hides the email in the HTML),
+            replace the action URL with the random alias FormSubmit emails
+            after activation, e.g. https://formsubmit.co/<alias>.
+          -->
+          <form
+            class="cta-form"
+            id="earlyAccessForm"
+            action="https://formsubmit.co/pjlim21@gmail.com"
+            method="POST"
+            novalidate
+          >
             <label for="eaName" class="sr-only">Name</label>
             <input id="eaName" name="name" type="text" placeholder="Your name" autocomplete="name" required />
             <label for="eaEmail" class="sr-only">Email</label>
             <input id="eaEmail" name="email" type="email" placeholder="you@example.com" autocomplete="email" required />
             <label for="eaRole" class="sr-only">Role</label>
-            <select id="eaRole" name="role">
+            <select id="eaRole" name="role" required>
               <option value="">I am a…</option>
               <option>Runner</option>
               <option>Coach</option>
@@ -422,8 +438,19 @@
               <option>Performance Lab</option>
               <option>Other</option>
             </select>
+            <label for="eaMessage" class="sr-only">Message</label>
+            <textarea id="eaMessage" name="message" placeholder="What are you hoping Kineura helps you with? (optional)" rows="4"></textarea>
+
+            <!-- FormSubmit configuration: subject line, table template, honeypot, captcha, redirect -->
+            <input type="hidden" name="_subject" value="Kineura early access request" />
+            <input type="hidden" name="_template" value="table" />
+            <input type="hidden" name="_captcha" value="true" />
+            <input type="hidden" name="_next" value="https://pjlim21.github.io/kineura-site/?ea=thanks" />
+            <!-- Honeypot field: bots fill this; humans leave it empty. -->
+            <input type="text" name="_honey" tabindex="-1" autocomplete="off" aria-hidden="true" class="cta-form-honey" />
+
             <button class="btn btn-primary" type="submit">Request Early Access</button>
-            <p class="form-note" id="formNote">No backend yet — submitting opens your email client. We'll never share your address.</p>
+            <p class="form-note" id="formNote">Submissions are sent to Kineura for early access follow-up. We'll never share your address.</p>
           </form>
         </div>
       </div>
